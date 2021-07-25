@@ -5,10 +5,31 @@ from pyo import *
 
 s = Server().boot()
 s.start()
-moving_sound = SfPlayer("/Users/rucha/Desktop/cluster5/myProject/ShortBirdNoises.wav", mul=0.3)
-phasor = Phasor(0.1)
-binaural = Binaural(moving_sound, azimuth = phasor, elevation = 10)
+#moving_sound = SfPlayer("/Users/rucha/Desktop/cluster5/myProject/ShortBirdNoises.wav", mul=0.3) file location is too user dependent
+try:
+    moving_sound = SfPlayer("Sounds/ShortBirdNoises (1).wav")
+    #Images:
+    photo0 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/clue.png")
+    photoImg0 = photo0.subsample(5, 5)
 
+    photo1 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/leaves.png")
+    photoImg1 = photo1.subsample(5, 5)
+
+    photo2 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/dice.png")
+    photoImg2 = photo2.subsample(5, 5)
+
+    photo3 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/round.png")
+    photoImg3 = photo3.subsample(3, 3)
+
+    images = [photoImg0, photoImg1, photoImg2, photoImg3]
+except:
+    print("Some files cannot be found.")
+    quit()
+
+
+phasor = Phasor(0.1)
+#binaural = Binaural(moving_sound, azimuth = phasor, elevation = 10)
+binaural = Binaural(moving_sound, azimuth = phasor, elevation = 10)
 currentCount = 0
 
 def button_input(direction):
@@ -34,22 +55,6 @@ frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 titleBkgd = tk.Frame(root, bg="#871414")
 titleBkgd.place(relwidth=1, relheight=0.1, x=0, y=0)
 #insert image for title text? "APD Test"
-
-#Images:
-photo0 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/clue.png")
-photoImg0 = photo0.subsample(5, 5)
-
-photo1 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/leaves.png")
-photoImg1 = photo1.subsample(5, 5)
-
-photo2 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/dice.png")
-photoImg2 = photo2.subsample(5, 5)
-
-photo3 = PhotoImage(file = r"/Users/rucha/Desktop/cluster5/myProject/round.png")
-photoImg3 = photo3.subsample(3, 3)
-
-
-images = [photoImg0, photoImg1, photoImg2, photoImg3]
 
 play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command=play_music)
 #play_0.place(x=330, y=250)
