@@ -8,9 +8,8 @@ played = False
 
 s = Server().boot()  # initialize pyo server
 s.start()
-sounds = [SfPlayer("Sounds/blue & clue.wav"), SfPlayer("Sounds/leave & leaf.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/found & round.wav")]
-# need a dictionary for button text
-
+#sounds = [SfPlayer("Sounds/blue & clue.wav"), SfPlayer("Sounds/leave & leaf.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/found & round.wav")]
+soundFiles = ["blue & clue.wav", "leave & leaf.wav", "dice & dye.wav", "found & round.wav"]
 def setButton(button_play):
     global binaural
     global played
@@ -21,7 +20,6 @@ def setButton(button_play):
             currentCount += 1
             buttons[currentCount].place(x=330, y=250)
             played = False
-            binaural = newSound()
         else:
             print("Not played yet")
     else:
@@ -29,9 +27,11 @@ def setButton(button_play):
 
 
 def newSound():
+
     global binaural
     global currentCount
-    moving_sound = sounds[currentCount]
+    #moving_sound = sounds[currentCount]
+    moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount]}", mul=0.1)
     phasor = Phasor(0.1)
     binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
     return binaural
@@ -41,13 +41,17 @@ def button_input(direction):
 
 def play_music(binaural):
     global played
+    global currentCount
+    #binSounds[currentCount].out()
     binaural.out()
     print("Sound is playing")
     played = True
 
 
 def nextQuestion(play_button):
+    global binaural
     setButton(play_button)
+    binaural = newSound()
     print(currentCount)
 
 
