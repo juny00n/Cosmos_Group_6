@@ -9,8 +9,10 @@ played = False
 s = Server().boot()  # initialize pyo server
 s.start()
 sounds = [SfPlayer("Sounds/blue & clue.wav"), SfPlayer("Sounds/leave & leaf.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/found & round.wav")]
+# need a dictionary for button text
 
 def setButton(button_play):
+    global binaural
     global played
     global currentCount
     if currentCount < len(images) - 1:
@@ -19,15 +21,17 @@ def setButton(button_play):
             currentCount += 1
             buttons[currentCount].place(x=330, y=250)
             played = False
+            binaural = newSound()
         else:
             print("Not played yet")
     else:
-        print("No more questions.")  # Don't need this line in actual product? just make button do nothing
+        print("No more questions.")
 
 
 def newSound():
+    global binaural
     global currentCount
-    moving_sound = sounds[0]
+    moving_sound = sounds[currentCount]
     phasor = Phasor(0.1)
     binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
     return binaural
