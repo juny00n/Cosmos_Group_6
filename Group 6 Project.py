@@ -30,8 +30,7 @@ def newSound():
 
     global binaural
     global currentCount
-    #moving_sound = sounds[currentCount]
-    moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount]}", mul=0.1)
+    moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount]}")
     phasor = Phasor(0.1)
     binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
     return binaural
@@ -39,10 +38,10 @@ def newSound():
 def button_input(direction):
     print(direction)
 
-def play_music(binaural):
+def play_music(bin):
     global played
-    global currentCount
-    #binSounds[currentCount].out()
+    global binaural
+    binaural = newSound()
     binaural.out()
     print("Sound is playing")
     played = True
@@ -51,7 +50,6 @@ def play_music(binaural):
 def nextQuestion(play_button):
     global binaural
     setButton(play_button)
-    binaural = newSound()
     print(currentCount)
 
 
@@ -79,8 +77,7 @@ try:
 except:
     print("Some files cannot be found.")
 
-#phasor = Phasor(0.1)
-#binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
+
 
 binaural = newSound()
 
