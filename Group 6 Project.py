@@ -6,31 +6,36 @@ from pyo import *
 currentCount = 0
 played = False
 
+s = Server().boot()  # initialize pyo server
+s.start()
+sounds = [SfPlayer("Sounds/blue & clue.wav"), SfPlayer("Sounds/leave & leaf.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/dice & dye.wav"), SfPlayer("Sounds/found & round.wav")]
 
-# Function to destroy old button & create new one (need to fix)
 def setButton(button_play):
     global played
-
     global currentCount
     if currentCount < len(images) - 1:
         if played:
             button_play.destroy()
             currentCount += 1
+            buttons[currentCount].place(x=330, y=250)
             played = False
         else:
             print("Not played yet")
     else:
         print("No more questions.")  # Don't need this line in actual product? just make button do nothing
-    #button_play1 = tk.Button(root, image=images[currentCount], padx=5, pady=5, command=play_music)
-    #button_play1.place(x=330, y=250)
-    buttons[currentCount].place(x=330, y=250)
 
+
+def newSound():
+    global currentCount
+    moving_sound = sounds[0]
+    phasor = Phasor(0.1)
+    binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
+    return binaural
 
 def button_input(direction):
     print(direction)
 
-
-def play_music():
+def play_music(binaural):
     global played
     binaural.out()
     print("Sound is playing")
@@ -42,24 +47,13 @@ def nextQuestion(play_button):
     print(currentCount)
 
 
-def clear_frame():
-    for widgets in root.winfo_children():
-        widgets.destroy()
-
-
-s = Server().boot()  # initialize pyo server
-s.start()
-
 root = tk.Tk()  # initialize tkinter window
 root.title("Group 6 Project")
 
 canvas = tk.Canvas(root, height=800, width=800, bg="#871414")  # red color
 canvas.pack()
 
-# moving_sound = SfPlayer("/Users/rucha/Desktop/cluster5/myProject/ShortBirdNoises.wav", mul=0.3) file location is too user dependent
-
 try:
-    moving_sound = SfPlayer("Sounds/ShortBirdNoises (1).wav")
     # Images:
     photo0 = PhotoImage(file="Images/clue.png")
     photoImg0 = photo0.subsample(5, 5)
@@ -77,8 +71,10 @@ try:
 except:
     print("Some files cannot be found.")
 
-phasor = Phasor(0.1)
-binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
+#phasor = Phasor(0.1)
+#binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
+
+binaural = newSound()
 
 frame = tk.Frame(root, bg="#e3e8df")
 frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
@@ -87,24 +83,18 @@ titleBkgd = tk.Frame(root, bg="#871414")
 titleBkgd.place(relwidth=1, relheight=0.1, x=0, y=0)
 # insert image for title text? "APD Test"
 
-play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command=play_music)
-# play_0.place(x=330, y=250)
+play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command=lambda: play_music(binaural))
 
-play_1 = tk.Button(root, image=images[1], padx=5, pady=5, command=play_music)
-# play_1.place(x=330, y=250)
+play_1 = tk.Button(root, image=images[1], padx=5, pady=5, command=lambda: play_music(binaural))
 
-play_2 = tk.Button(root, image=images[2], padx=5, pady=5, command=play_music)
-# play_2.place(x=330, y=250)
+play_2 = tk.Button(root, image=images[2], padx=5, pady=5, command=lambda: play_music(binaural))
 
-play_3 = tk.Button(root, image=images[3], padx=5, pady=5, command=play_music)
-# play_3.place(x=330, y=250)
+play_3 = tk.Button(root, image=images[3], padx=5, pady=5, command=lambda: play_music(binaural))
 
 # List of play buttons:
 buttons = [play_0, play_1, play_2, play_3]
 
 # Regular Buttons:
-#button_play = tk.Button(root, image=images[0], padx=5, pady=5, command=play_music)
-#button_play.place(x=330, y=250)
 buttons[0].place(x=330, y=250)
 button_left = tk.Button(root, text="Left", padx=40, pady=20, fg="#871414", command=lambda: button_input('left'))
 button_left.place(x=260, y=450)
