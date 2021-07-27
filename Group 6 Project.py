@@ -3,6 +3,7 @@ import os
 from tkinter import *
 from pyo import *
 import pyo as p
+import time
 from PIL import ImageTk, Image
 
 currentCount = 0
@@ -14,13 +15,16 @@ s = Server().boot()  # initialize pyo server
 s.start()
 soundFiles = ["blue & clue.wav", "leave & leaf.wav", "dice & dye.wav", "found & round.wav", "desert & dessert.wav",
               "row & raw.wav", "aware & swear.wav", "17 & 70.wav", "meow.wav", "Barking.wav", "softBirds.wav",
-              "Dolphin Sound( Edited).wav", "FootstepsAudio.wav", "Sax (Middle C) (1).wav", "Piano(Middle A).wav", "Cello(High E).wav",
+              "Dolphin Sound( Edited).wav", "FootstepsAudio.wav", "Sax (Middle C) (1).wav", "Piano(Middle A).wav",
+              "Cello(High E).wav",
               "Flute(Middle A)(Edit).wav", "Clarinet(High E).wav", "Flute(High E).wav", ]
-answers = ["first", "first", "second", "first", "second", "first", "second", "second", "left", "right", "front", "right", "left",
-           "test", "test", "test", "test", "test", "test"]
+answers = ["first", "first", "second", "first", "second", "first", "second", "second", "left", "right", "front",
+           "right", "left",
+           "different", "different", "same"]
 
-#binaural = Binaural(moving_sound, azimuth=90, elevation = 20, azispan =1).out()
-#binaural = Binaural(moving_sound, azimuth=-90, elevation = 20, azispan =1).out()
+
+# binaural = Binaural(moving_sound, azimuth=90, elevation = 20, azispan =1).out()
+# binaural = Binaural(moving_sound, azimuth=-90, elevation = 20, azispan =1).out()
 def setButton(button_play):
     global binaural
     global played
@@ -29,7 +33,9 @@ def setButton(button_play):
     global answer
     if currentCount == 7:
         switchText()
-    if currentCount < len(soundFiles) - 1:
+    elif currentCount == 12:
+        switchText()
+    if currentCount < len(answers) - 1:
         if played and not answer == "":
             checkAnswer(answer)
             button_play.destroy()
@@ -50,7 +56,7 @@ def newSound():
     global currentCount
     moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount]}")
     phasor = Phasor(0.1)
-    if currentCount <=7:
+    if currentCount <= 7:
         binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
     elif 8 <= currentCount < 13:
         if answers[currentCount] == "left":
@@ -59,6 +65,12 @@ def newSound():
             binaural = p.HRTF(moving_sound, azimuth=direction[0]).out()
         elif answers[currentCount] == "front":
             binaural = p.HRTF(moving_sound, azimuth=direction[2]).out()
+    else:
+        binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
+        time.sleep(5)
+        moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount + 3]}")
+        binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
+
     return binaural
 
 
@@ -81,11 +93,10 @@ def checkAnswer(answer):
     else:
         print("wrong")
 
+
 def play_music():
     global played
-    global binaural
-    binaural = newSound()
-    #binaural.out()
+    newSound()
     print("Sound is playing")
     played = True
 
@@ -97,28 +108,40 @@ def nextQuestion(play_button):
 
 
 def switchText():
+    global currentCount
     global text0, text1, text2, text3
-    text0 = "Left"
-    text1 = "Right"
-    text2 = "Front"
-    text3 = "Back"
     global button_first, button_second, button_both, button_none
-
+    global button_front, button_back
     button_first.destroy()
     button_second.destroy()
     button_both.destroy()
     button_none.destroy()
 
-    button_left = tk.Button(root, text=text0, padx=20, pady=15, fg="#871414", command=lambda: button_input('left'))
-    button_left.place(x=290, y=500)
-    button_right = tk.Button(root, text=text1, padx=15, pady=15, fg="#871414", command=lambda: button_input('right'))
-    button_right.place(x=490, y=500)
+    if currentCount == 7:
+        text0 = "Left"
+        text1 = "Right"
+        text2 = "Front"
+        text3 = "Back"
+    else:
+        text0 = "Same"
+        text1 = "Different"
+        text2 = ""
+        text3 = ""
+        button_back.destroy()
+        button_front.destroy()
 
-    button_front = tk.Button(root, text=text2, padx=20, pady=15, fg="#871414", command=lambda: button_input('front'))
+    button_left = tk.Button(root, text=text0, padx=20, pady=15, fg="#871414", command=lambda: button_input(text0.lower()))
+    button_left.place(x=290, y=500)
+    button_right = tk.Button(root, text=text1, padx=15, pady=15, fg="#871414", command=lambda: button_input(text1.lower()))
+    button_right.place(x=490, y=500)
+    button_front = tk.Button(root, text=text2, padx=20, pady=15, fg="#871414", command=lambda: button_input(text2.lower()))
     button_front.place(x=390, y=450)
-    button_back = tk.Button(root, text=text3, padx=20, pady=15, fg="#871414", command=lambda: button_input('back'))
+    button_back = tk.Button(root, text=text3, padx=20, pady=15, fg="#871414", command=lambda: button_input(text3.lower()))
     button_back.place(x=390, y=550)
 
+    if currentCount > 7:
+        button_front.destroy()
+        button_back.destroy()
 
 def scorePage():
     frame = tk.Frame(root, bg="#e3e8df")
@@ -131,7 +154,8 @@ def scorePage():
     Here is your score:""", fg="#871414", bg="#e3e8df", font="Times 24 bold")
     message1.place(x=250, y=100)
 
-    message2 = tk.Label(root, text="" + str(awardedPoints) + "/" + len(images), fg="#871414", bg="#e3e8df", font="Times 55 bold")
+    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers)}", fg="#871414", bg="#e3e8df",
+                        font="Times 55 bold")
     message2.place(x=370, y=250)
 
     message3 = tk.Label(root, text="Score Breakdown:", fg="#871414", bg="#e3e8df", font="Times 25")
@@ -164,10 +188,11 @@ try:
                 "Which audio says the word 'swear'?", "Which audio says the word 'seventy'?",
                 """Which direction is the meowing coming from?""",
                 """Which direction is the barking coming from?""", """Which direction is the chirping coming from?""",
-                """Which direction are the dolphins coming from?""", """Which direction are the footsteps coming from?""",
-                "What note is the saxophone playing?", "What note is the piano playing?",
-                "What note is the cello playing?", "What note is the flute playing?",
-                "What note ist the clarinet playing?", "What note is the flute playing?"]
+                """Which direction are the dolphins coming from?""",
+                """Which direction are the footsteps coming from?""",
+                "Are the same notes being played?",
+                "Are the same notes being played?",
+                "Are the same notes being played?"]
 
     # Images:
     photo0 = PhotoImage(file="Images/clue.png")
@@ -210,13 +235,13 @@ try:
     photoImg12 = photo12.subsample(4, 4)
 
     photo13 = PhotoImage(file="Images/sax.png")
-    photoImg13 = photo13.subsample(4, 4)
+    photoImg13 = photo13.subsample(5, 5)
 
     photo14 = PhotoImage(file="Images/piano.png")
-    photoImg14 = photo14.subsample(4, 4)
+    photoImg14 = photo14.subsample(3, 3)
 
     photo15 = PhotoImage(file="Images/cello.png")
-    photoImg15 = photo15.subsample(4, 4)
+    photoImg15 = photo15.subsample(2, 2)
 
     photo16 = PhotoImage(file="Images/flute.png")
     photoImg16 = photo16.subsample(4, 4)
@@ -228,13 +253,14 @@ try:
     photoImg18 = photo18.subsample(4, 4)
 
     images = [photoImg0, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, photoImg6, photoImg7,
-              photoImg8, photoImg9, photoImg10, photoImg11, photoImg12, photoImg13, photoImg14, photoImg15, photoImg16, photoImg17, photoImg18]
+              photoImg8, photoImg9, photoImg10, photoImg11, photoImg12, photoImg13, photoImg14, photoImg15, photoImg16,
+              photoImg17, photoImg18]
 
 except:
     print("Some files cannot be found.")
     quit()
 
-#binaural = newSound()
+# binaural = newSound()
 
 # Starting page of application:
 frame = tk.Frame(root, bg="#e3e8df")
@@ -261,7 +287,7 @@ startButton = tk.Button(root, text="Start", padx=20, pady=15, fg="#871414", comm
 startButton.place(x=490, y=500)
 
 # ---------
-play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command= play_music)
+play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command=play_music)
 
 play_1 = tk.Button(root, image=images[1], padx=5, pady=5, command=play_music)
 
@@ -292,7 +318,6 @@ play_15 = tk.Button(root, image=images[15], padx=5, pady=5, command=play_music)
 play_16 = tk.Button(root, image=images[16], padx=5, pady=5, command=play_music)
 play_17 = tk.Button(root, image=images[17], padx=5, pady=5, command=play_music)
 play_18 = tk.Button(root, image=images[18], padx=5, pady=5, command=play_music)
-
 
 # List of play buttons:
 buttons = [play_0, play_1, play_2, play_3, play_4, play_5, play_6, play_7,
