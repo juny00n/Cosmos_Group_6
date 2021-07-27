@@ -67,7 +67,7 @@ def newSound():
             binaural = p.HRTF(moving_sound, azimuth=direction[2]).out()
     else:
         binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
-        time.sleep(5)
+        time.sleep(3)
         moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount + 3]}")
         binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
 
@@ -143,7 +143,7 @@ def switchText():
         button_front.destroy()
         button_back.destroy()
 
-def scorePage():
+#def scorePage():
     frame = tk.Frame(root, bg="#e3e8df")
     frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
@@ -165,7 +165,7 @@ def scorePage():
 
     message4 = tk.Label(root, text="Info will be here...", fg="#871414", bg="#e3e8df", font="Times 16", justify="left")
     message4.place(x=220, y=450)
-
+##########################################################
 
 root = tk.Tk()  # initialize tkinter window
 root.title("Group 6 Project")
