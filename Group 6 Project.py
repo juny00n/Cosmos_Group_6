@@ -275,8 +275,8 @@ photo_ = photo.subsample(2, 2)
 cover = tk.Label(root, image=photo_, bg="#e3e8df")
 cover.place(x=310, y=250)
 
-m1 = tk.Label(root, text="Auditory Processing Disorder", fg="#871414", bg="#e3e8df", font="Times 30 bold")
-m1.place(x=230, y=150)
+m1 = tk.Label(root, text="APD Assessor", fg="#871414", bg="#e3e8df", font="Times 30 bold")
+m1.place(x=330, y=150)
 
 m2 = tk.Label(root, text="Early Detection Assessment for Children", fg="#871414", bg="#e3e8df", font="Times 16")
 m2.place(x=280, y=210)
