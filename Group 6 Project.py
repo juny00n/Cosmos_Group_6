@@ -16,11 +16,12 @@ s.start()
 soundFiles = ["blue & clue.wav", "leave & leaf.wav", "dice & dye.wav", "found & round.wav", "desert & dessert.wav",
               "row & raw.wav", "aware & swear.wav", "17 & 70.wav", "meow.wav", "Barking.wav", "softBirds.wav",
               "Dolphin Sound( Edited).wav", "FootstepsAudio.wav", "Sax (Middle C) (1).wav", "Piano(Middle A).wav",
-              "Cello(High E).wav",
-              "Flute(Middle A)(Edit).wav", "Clarinet(High E).wav", "Flute(High E).wav", ]
+              "Cello(High E).wav", "Flute(Middle A)(Edit).wav", "Clarinet(High E).wav", "Flute(High E).wav"
+              "Flute(Middle A)(Edit).wav", "Clarinet(High E).wav", "Flute(High E).wav",
+              "Sax (Middle C) (1).wav", "Cello(High E).wav", "Clarinet(High E).wav"]
 answers = ["first", "first", "second", "first", "second", "first", "second", "second", "left", "right", "front",
            "right", "left",
-           "different", "different", "same"]
+           "different", "different", "same", "different", "same", "same"]
 
 
 
