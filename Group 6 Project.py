@@ -2,23 +2,25 @@ import tkinter as tk
 import os
 from tkinter import *
 from pyo import *
+import pyo as p
 from PIL import ImageTk, Image
 
 currentCount = 0
 awardedPoints = 0
 played = False
 answer = ""
-
+direction = [90, -90, 0]
 s = Server().boot()  # initialize pyo server
 s.start()
 soundFiles = ["blue & clue.wav", "leave & leaf.wav", "dice & dye.wav", "found & round.wav", "desert & dessert.wav",
               "row & raw.wav", "aware & swear.wav", "17 & 70.wav", "meow.wav", "Barking.wav", "softBirds.wav",
               "Dolphin Sound( Edited).wav", "FootstepsAudio.wav", "Sax (Middle C) (1).wav", "Piano(Middle A).wav", "Cello(High E).wav",
               "Flute(Middle A)(Edit).wav", "Clarinet(High E).wav", "Flute(High E).wav", ]
-answers = ["first", "first", "second", "first", "second", "first", "second", "second", "test", "test", "test", "test", "test",
+answers = ["first", "first", "second", "first", "second", "first", "second", "second", "left", "right", "front", "right", "left",
            "test", "test", "test", "test", "test", "test"]
 
-
+#binaural = Binaural(moving_sound, azimuth=90, elevation = 20, azispan =1).out()
+#binaural = Binaural(moving_sound, azimuth=-90, elevation = 20, azispan =1).out()
 def setButton(button_play):
     global binaural
     global played
@@ -48,7 +50,15 @@ def newSound():
     global currentCount
     moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount]}")
     phasor = Phasor(0.1)
-    binaural = Binaural(moving_sound, azimuth=phasor, elevation=10)
+    if currentCount <=7:
+        binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
+    elif 8 <= currentCount < 13:
+        if answers[currentCount] == "left":
+            binaural = p.HRTF(moving_sound, azimuth=direction[1]).out()
+        elif answers[currentCount] == "right":
+            binaural = p.HRTF(moving_sound, azimuth=direction[0]).out()
+        elif answers[currentCount] == "front":
+            binaural = p.HRTF(moving_sound, azimuth=direction[2]).out()
     return binaural
 
 
@@ -71,11 +81,11 @@ def checkAnswer(answer):
     else:
         print("wrong")
 
-def play_music(bin):
+def play_music():
     global played
     global binaural
     binaural = newSound()
-    binaural.out()
+    #binaural.out()
     print("Sound is playing")
     played = True
 
@@ -224,7 +234,7 @@ except:
     print("Some files cannot be found.")
     quit()
 
-binaural = newSound()
+#binaural = newSound()
 
 # Starting page of application:
 frame = tk.Frame(root, bg="#e3e8df")
@@ -251,37 +261,37 @@ startButton = tk.Button(root, text="Start", padx=20, pady=15, fg="#871414", comm
 startButton.place(x=490, y=500)
 
 # ---------
-play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command=lambda: play_music(binaural))
+play_0 = tk.Button(root, image=images[0], padx=5, pady=5, command= play_music)
 
-play_1 = tk.Button(root, image=images[1], padx=5, pady=5, command=lambda: play_music(binaural))
+play_1 = tk.Button(root, image=images[1], padx=5, pady=5, command=play_music)
 
-play_2 = tk.Button(root, image=images[2], padx=5, pady=5, command=lambda: play_music(binaural))
+play_2 = tk.Button(root, image=images[2], padx=5, pady=5, command=play_music)
 
-play_3 = tk.Button(root, image=images[3], padx=5, pady=5, command=lambda: play_music(binaural))
+play_3 = tk.Button(root, image=images[3], padx=5, pady=5, command=play_music)
 
-play_4 = tk.Button(root, image=images[4], padx=5, pady=5, command=lambda: play_music(binaural))
+play_4 = tk.Button(root, image=images[4], padx=5, pady=5, command=play_music)
 
-play_5 = tk.Button(root, image=images[5], padx=5, pady=5, command=lambda: play_music(binaural))
+play_5 = tk.Button(root, image=images[5], padx=5, pady=5, command=play_music)
 
-play_6 = tk.Button(root, image=images[6], padx=5, pady=5, command=lambda: play_music(binaural))
+play_6 = tk.Button(root, image=images[6], padx=5, pady=5, command=play_music)
 
-play_7 = tk.Button(root, image=images[7], padx=5, pady=5, command=lambda: play_music(binaural))
+play_7 = tk.Button(root, image=images[7], padx=5, pady=5, command=play_music)
 
-play_8 = tk.Button(root, image=images[8], padx=5, pady=5, command=lambda: play_music(binaural))
+play_8 = tk.Button(root, image=images[8], padx=5, pady=5, command=play_music)
 
-play_9 = tk.Button(root, image=images[9], padx=5, pady=5, command=lambda: play_music(binaural))
+play_9 = tk.Button(root, image=images[9], padx=5, pady=5, command=play_music)
 
-play_10 = tk.Button(root, image=images[10], padx=5, pady=5, command=lambda: play_music(binaural))
+play_10 = tk.Button(root, image=images[10], padx=5, pady=5, command=play_music)
 
-play_11 = tk.Button(root, image=images[11], padx=5, pady=5, command=lambda: play_music(binaural))
+play_11 = tk.Button(root, image=images[11], padx=5, pady=5, command=play_music)
 
-play_12 = tk.Button(root, image=images[12], padx=5, pady=5, command=lambda: play_music(binaural))
-play_13 = tk.Button(root, image=images[13], padx=5, pady=5, command=lambda: play_music(binaural))
-play_14 = tk.Button(root, image=images[14], padx=5, pady=5, command=lambda: play_music(binaural))
-play_15 = tk.Button(root, image=images[15], padx=5, pady=5, command=lambda: play_music(binaural))
-play_16 = tk.Button(root, image=images[16], padx=5, pady=5, command=lambda: play_music(binaural))
-play_17 = tk.Button(root, image=images[17], padx=5, pady=5, command=lambda: play_music(binaural))
-play_18 = tk.Button(root, image=images[18], padx=5, pady=5, command=lambda: play_music(binaural))
+play_12 = tk.Button(root, image=images[12], padx=5, pady=5, command=play_music)
+play_13 = tk.Button(root, image=images[13], padx=5, pady=5, command=play_music)
+play_14 = tk.Button(root, image=images[14], padx=5, pady=5, command=play_music)
+play_15 = tk.Button(root, image=images[15], padx=5, pady=5, command=play_music)
+play_16 = tk.Button(root, image=images[16], padx=5, pady=5, command=play_music)
+play_17 = tk.Button(root, image=images[17], padx=5, pady=5, command=play_music)
+play_18 = tk.Button(root, image=images[18], padx=5, pady=5, command=play_music)
 
 
 # List of play buttons:
