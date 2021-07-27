@@ -23,8 +23,7 @@ answers = ["first", "first", "second", "first", "second", "first", "second", "se
            "different", "different", "same"]
 
 
-# binaural = Binaural(moving_sound, azimuth=90, elevation = 20, azispan =1).out()
-# binaural = Binaural(moving_sound, azimuth=-90, elevation = 20, azispan =1).out()
+
 def setButton(button_play):
     global binaural
     global played
