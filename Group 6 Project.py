@@ -4,6 +4,7 @@ from tkinter import *
 from pyo import *
 import pyo as p
 import time
+from tkinter import simpledialog
 from PIL import ImageTk, Image
 
 currentCount = 0
@@ -143,6 +144,41 @@ def switchText():
         button_front.destroy()
         button_back.destroy()
 
+def scoreOutput(userInput):
+    global output
+    global awardedPoints
+
+    temp = 18-awardedPoints
+    if(userInput<6):
+        if(temp<4):
+            output = "Based on your age and score, APDA reccomends no extra consultation or diagnosis."
+        elif(temp<8):
+            output = "Based on your age and score, APDA reccomends potential extra consultation or further diagnostic tests."
+        else:
+            output = "Based on your age and score, APDA highly reccomends further consultation with a medical expert."
+    elif(userInput<8):
+        if(temp<3):
+            output = "Based on your age and score, APDA reccomends no extra consultation or diagnosis."
+        elif(temp<7):
+            output = "Based on your age and score, APDA reccomends potential extra consultation or further diagnostic tests."
+        else:
+            output = "Based on your age and score, APDA highly reccomends further consultation with a medical expert."
+    elif(userInput<11):
+        if(temp<2):
+            output = "Based on your age and score, APDA reccomends no extra consultation or diagnosis."
+        elif(temp<6):
+            output = "Based on your age and score, APDA reccomends potential extra consultation or further diagnostic tests."
+        else:
+            output = "Based on your age and score, APDA highly reccomends further consultation with a medical expert."
+    else:
+        if(temp<2):
+            output = "Based on your age and score, APDA reccomends no extra consultation or diagnosis."
+        elif(temp<5):
+            output = "Based on your age and score, APDA reccomends potential extra consultation or further diagnostic tests."
+        else:
+            output = "Based on your age and score, APDA highly reccomends further consultation with a medical expert."
+
+
 def scorePage():
     frame = tk.Frame(root, bg="#e3e8df")
     frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
@@ -154,17 +190,22 @@ def scorePage():
     Here is your score:""", fg="#871414", bg="#e3e8df", font="Times 24 bold")
     message1.place(x=250, y=100)
 
-    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers-1)}", fg="#871414", bg="#e3e8df",
+    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers)-1}", fg="#871414", bg="#e3e8df",
                         font="Times 55 bold")
     message2.place(x=370, y=250)
+
+    userInput = simpledialog.askinteger(title="Test",
+                                  prompt="Please enter your age:")
+
+    scoreOutput(userInput)
 
     message3 = tk.Label(root, text="Score Breakdown:", fg="#871414", bg="#e3e8df", font="Times 25")
     message3.place(x=300, y=400)
 
     # Need to fill in info on what scores mean/next steps for user
 
-    message4 = tk.Label(root, text="Info will be here...", fg="#871414", bg="#e3e8df", font="Times 16", justify="left")
-    message4.place(x=220, y=450)
+    message4 = tk.Label(root, text=output, fg="#871414", bg="#e3e8df", font="Times 14", justify="center")
+    message4.place(x=100, y=450)
 ##########################################################
 
 root = tk.Tk()  # initialize tkinter window
@@ -241,7 +282,7 @@ try:
     photoImg13 = photo13.subsample(5, 5)
 
     photo14 = PhotoImage(file="Images/piano.png")
-    photoImg14 = photo14.subsample(4, 4)
+    photoImg14 = photo14.subsample(1, 1)
 
     photo15 = PhotoImage(file="Images/cello.png")
     photoImg15 = photo15.subsample(1, 1)
