@@ -35,7 +35,7 @@ def setButton(button_play):
         switchText()
     elif currentCount == 12:
         switchText()
-    if currentCount < len(answers) - 1:
+    if currentCount < len(answers) - 2:
         if played and not answer == "":
             checkAnswer(answer)
             button_play.destroy()
@@ -68,7 +68,7 @@ def newSound():
     else:
         binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
         time.sleep(3)
-        moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount + 3]}")
+        moving_sound = SfPlayer(f"Sounds/{soundFiles[currentCount + 6]}")
         binaural = Binaural(moving_sound, azimuth=phasor, elevation=10).out()
 
     return binaural
@@ -143,7 +143,7 @@ def switchText():
         button_front.destroy()
         button_back.destroy()
 
-#def scorePage():
+def scorePage():
     frame = tk.Frame(root, bg="#e3e8df")
     frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
@@ -154,7 +154,7 @@ def switchText():
     Here is your score:""", fg="#871414", bg="#e3e8df", font="Times 24 bold")
     message1.place(x=250, y=100)
 
-    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers)}", fg="#871414", bg="#e3e8df",
+    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers-1)}", fg="#871414", bg="#e3e8df",
                         font="Times 55 bold")
     message2.place(x=370, y=250)
 
@@ -190,6 +190,9 @@ try:
                 """Which direction is the barking coming from?""", """Which direction is the chirping coming from?""",
                 """Which direction are the dolphins coming from?""",
                 """Which direction are the footsteps coming from?""",
+                "Are the same notes being played?",
+                "Are the same notes being played?",
+                "Are the same notes being played?",
                 "Are the same notes being played?",
                 "Are the same notes being played?",
                 "Are the same notes being played?"]
@@ -238,19 +241,19 @@ try:
     photoImg13 = photo13.subsample(5, 5)
 
     photo14 = PhotoImage(file="Images/piano.png")
-    photoImg14 = photo14.subsample(3, 3)
+    photoImg14 = photo14.subsample(4, 4)
 
     photo15 = PhotoImage(file="Images/cello.png")
-    photoImg15 = photo15.subsample(2, 2)
+    photoImg15 = photo15.subsample(1, 1)
 
     photo16 = PhotoImage(file="Images/flute.png")
-    photoImg16 = photo16.subsample(4, 4)
+    photoImg16 = photo16.subsample(1, 1)
 
     photo17 = PhotoImage(file="Images/clarinet.png")
-    photoImg17 = photo17.subsample(4, 4)
+    photoImg17 = photo17.subsample(1, 1)
 
     photo18 = PhotoImage(file="Images/flute.png")
-    photoImg18 = photo18.subsample(4, 4)
+    photoImg18 = photo18.subsample(1, 1)
 
     images = [photoImg0, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, photoImg6, photoImg7,
               photoImg8, photoImg9, photoImg10, photoImg11, photoImg12, photoImg13, photoImg14, photoImg15, photoImg16,
