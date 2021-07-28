@@ -131,13 +131,13 @@ def switchText():
         button_back.destroy()
         button_front.destroy()
 
-    button_left = tk.Button(root, text=text0, padx=20, pady=15, fg="#871414", command=lambda: button_input(text0.lower()))
+    button_left = tk.Button(root, text=text0, padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input(text0.lower()))
     button_left.place(x=290, y=500)
-    button_right = tk.Button(root, text=text1, padx=15, pady=15, fg="#871414", command=lambda: button_input(text1.lower()))
+    button_right = tk.Button(root, text=text1, padx=15, pady=15, fg="#8dcfd8", command=lambda: button_input(text1.lower()))
     button_right.place(x=490, y=500)
-    button_front = tk.Button(root, text=text2, padx=20, pady=15, fg="#871414", command=lambda: button_input(text2.lower()))
+    button_front = tk.Button(root, text=text2, padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input(text2.lower()))
     button_front.place(x=390, y=450)
-    button_back = tk.Button(root, text=text3, padx=20, pady=15, fg="#871414", command=lambda: button_input(text3.lower()))
+    button_back = tk.Button(root, text=text3, padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input(text3.lower()))
     button_back.place(x=390, y=550)
 
     if currentCount > 7:
@@ -183,14 +183,14 @@ def scorePage():
     frame = tk.Frame(root, bg="#e3e8df")
     frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
-    titleBkgd = tk.Frame(root, bg="#871414")
+    titleBkgd = tk.Frame(root, bg="#8dcfd8")
     titleBkgd.place(relwidth=1, relheight=0.1, x=0, y=0)
 
     message1 = tk.Label(root, text="""You have completed the test!
-    Here is your score:""", fg="#871414", bg="#e3e8df", font="Times 24 bold")
+    Here is your score:""", fg="#8dcfd8", bg="#e3e8df", font="Times 24 bold")
     message1.place(x=250, y=100)
 
-    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers)-1}", fg="#871414", bg="#e3e8df",
+    message2 = tk.Label(root, text=f"{str(awardedPoints)}/{len(answers)-1}", fg="#8dcfd8", bg="#e3e8df",
                         font="Times 55 bold")
     message2.place(x=370, y=250)
 
@@ -199,19 +199,19 @@ def scorePage():
 
     scoreOutput(userInput)
 
-    message3 = tk.Label(root, text="Score Breakdown:", fg="#871414", bg="#e3e8df", font="Times 25")
+    message3 = tk.Label(root, text="Score Breakdown:", fg="#8dcfd8", bg="#e3e8df", font="Times 25")
     message3.place(x=300, y=400)
 
     # Need to fill in info on what scores mean/next steps for user
 
-    message4 = tk.Label(root, text=output, fg="#871414", bg="#e3e8df", font="Times 14", justify="center")
+    message4 = tk.Label(root, text=output, fg="#8dcfd8", bg="#e3e8df", font="Times 14", justify="center")
     message4.place(x=100, y=450)
 ##########################################################
 
 root = tk.Tk()  # initialize tkinter window
 root.title("Group 6 Project")
 
-canvas = tk.Canvas(root, height=800, width=800, bg="#871414")  # red color
+canvas = tk.Canvas(root, height=800, width=800, bg="#8dcfd8")  # red color
 canvas.pack()
 
 var = StringVar()
@@ -310,24 +310,24 @@ except:
 frame = tk.Frame(root, bg="#e3e8df")
 frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
 
-titleBkgd = tk.Frame(root, bg="#871414")
+titleBkgd = tk.Frame(root, bg="#8dcfd8")
 titleBkgd.place(relwidth=1, relheight=0.1, x=0, y=0)
 
-photo = PhotoImage(file="Images/cover.png")
-photo_ = photo.subsample(2, 2)
+photo = PhotoImage(file="Images/logo.png")
+photo_ = photo.subsample(3, 3)
 
 cover = tk.Label(root, image=photo_, bg="#e3e8df")
 cover.place(x=310, y=250)
 
-m1 = tk.Label(root, text="APD Assessor", fg="#871414", bg="#e3e8df", font="Times 30 bold")
+m1 = tk.Label(root, text="APD Assessor", fg="#000000", bg="#e3e8df", font="Times 30 bold")
 m1.place(x=330, y=150)
 
-m2 = tk.Label(root, text="Early Detection Assessment for Children", fg="#871414", bg="#e3e8df", font="Times 16")
+m2 = tk.Label(root, text="Early Detection Assessment for Children", fg="#000000", bg="#e3e8df", font="Times 16")
 m2.place(x=280, y=210)
 
-quitButton = tk.Button(root, text="Quit", padx=20, pady=15, fg="#871414", command=lambda: button_input("quit"))
+quitButton = tk.Button(root, text="Quit", padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input("quit"))
 quitButton.place(x=280, y=500)
-startButton = tk.Button(root, text="Start", padx=20, pady=15, fg="#871414", command=lambda: button_input("start"))
+startButton = tk.Button(root, text="Start", padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input("start"))
 startButton.place(x=490, y=500)
 
 # ---------
@@ -378,25 +378,25 @@ def setUpWindow():
     global button_first, button_second, button_both, button_none
 
     # Label
-    label = tk.Label(root, textvariable=var, fg="#871414", bg="#e3e8df", font="Times 16 bold")
+    label = tk.Label(root, textvariable=var, fg="#000000", bg="#e3e8df", font="Times 16 bold")
     label.place(x=300, y=180)
     # Buttons
     buttons[0].place(x=330, y=250)
     var.set(messages[0])
-    button_first = tk.Button(root, text=text0, padx=20, pady=15, fg="#871414", command=lambda: button_input('first'))
+    button_first = tk.Button(root, text=text0, padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input('first'))
     button_first.place(x=290, y=500)
-    button_second = tk.Button(root, text=text1, padx=15, pady=15, fg="#871414", command=lambda: button_input('second'))
+    button_second = tk.Button(root, text=text1, padx=15, pady=15, fg="#8dcfd8", command=lambda: button_input('second'))
     button_second.place(x=490, y=500)
 
-    button_both = tk.Button(root, text=text2, padx=20, pady=15, fg="#871414", command=lambda: button_input('both'))
+    button_both = tk.Button(root, text=text2, padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input('both'))
     button_both.place(x=390, y=450)
-    button_none = tk.Button(root, text=text3, padx=20, pady=15, fg="#871414", command=lambda: button_input('none'))
+    button_none = tk.Button(root, text=text3, padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input('none'))
     button_none.place(x=390, y=550)
 
-    button_next = tk.Button(root, text="Next", padx=20, pady=15, fg="#871414",
+    button_next = tk.Button(root, text="Next", padx=20, pady=15, fg="#8dcfd8",
                             command=lambda: nextQuestion(buttons[currentCount]))
     button_next.place(x=550, y=650)
-    button_quit = tk.Button(root, text="Quit", padx=20, pady=15, fg="#871414", command=lambda: button_input('quit'))
+    button_quit = tk.Button(root, text="Quit", padx=20, pady=15, fg="#8dcfd8", command=lambda: button_input('quit'))
     button_quit.place(x=150, y=650)
 
 
